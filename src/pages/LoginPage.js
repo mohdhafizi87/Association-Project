@@ -1,6 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import {commStyle} from '../styles/CommonStyle'
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {setListData} from '../redux/listData';
+import {setListDataNews} from '../redux/listDataNews'
 
 import {
   View,
@@ -11,6 +15,63 @@ import {
 } from 'react-native';
 
 export const LoginPage = () => {
+
+    const dispatch = useDispatch();
+
+    const callGetListAPI = () => {
+        axios
+          .get('https://dev-escroll.posdigicert.com.my/API_h/getalldetails/1', {
+            headers: {
+              Token: 'Basic ABC123ABCD',
+            },
+          })
+          .then(res => {
+      
+      
+            dispatch(setListData(res.data));
+            //console.log('Value Data', res.data);
+      
+            setTimeout(() => {
+             
+            }, 2000);
+          })
+          .catch(err => {
+            console.log('err: ', err);
+          
+          });
+      };
+
+      const callGetListNewsAPI = () => {
+        axios
+          .get('https://dev-escroll.posdigicert.com.my/API_h/getallnews/1', {
+            headers: {
+              Token: 'Basic ABC123ABCD',
+            },
+          })
+          .then(res => {
+      
+      
+            dispatch(setListDataNews(res.data));
+            //console.log('Value Data', res.data);
+      
+            setTimeout(() => {
+             
+            }, 2000);
+          })
+          .catch(err => {
+            console.log('err: ', err);
+          
+          });
+      };
+
+      useEffect(() => {
+        // Func here
+        
+        callGetListAPI();
+        callGetListNewsAPI();
+      }, [])
+      
+      
 
 const navigation = useNavigation();
 

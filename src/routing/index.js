@@ -6,6 +6,10 @@ import {MainPage} from '../pages/MainPage';
 import {ForgotPwdPage} from '../pages/ForgotPwdPage';
 import {ForgotUsernamePage} from '../pages/ForgotUsernamePage';
 import {RegisterPage} from '../pages/RegisterPage'
+import {DetailsPage} from '../pages/DetailsPage'
+import store from '../redux/store'
+import { Provider } from 'react-redux'
+
 
 
 const StackPublic = createNativeStackNavigator();
@@ -13,7 +17,9 @@ const StackPublic = createNativeStackNavigator();
 export const Routing = () => {
 
   return (
-   
+
+    <Provider store={store}>
+      
         <NavigationContainer>
           <StackPublic.Navigator
             screenOptions={{
@@ -28,6 +34,7 @@ export const Routing = () => {
             <StackPublic.Screen name="Details item" component={DetailsPage} />
           </StackPublic.Navigator>
         </NavigationContainer>
-
+        </Provider>
+    
   );
 };
